@@ -16,7 +16,7 @@ if (array_key_exists('Digits', $_POST)) {
     }
   }
   
-  if(file_exists($path){
+  if(file_exists($path)){
     header("Location: ".$path."index.php");
   }else{
     header("Location: error.php");
