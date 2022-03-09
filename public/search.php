@@ -10,12 +10,8 @@ $c = curl_init($searchUrl);
 curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 $json = curl_exec($c);
 $results = json_decode($json, true);
-$shints = '';
-$hints = '';
-foreach($results['query']['pages'] as $result){
-  $shints .= $result['title'].' or ';
-  $hints .= $result['title'].',';
-}
+$shints = implode(' or ', $results['query']['pages']);
+$hints = implode(',', $results['query']['pages']);
 
 $response = new VoiceResponse();
 $response->gather([
@@ -25,6 +21,7 @@ $response->gather([
   'hints' => $hints
 ]);
 
-$response->say('Did you mean '. $shints.'?');
+$gather->say('Did you mean '. $shints.'?');
+
 
 echo $response;
