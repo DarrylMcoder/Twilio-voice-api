@@ -16,7 +16,7 @@ $results = json_decode($json, true);
 foreach($results['query']['pages'] as $page){
   $pages[] = $page['title'];
 }
-$shints = implode(' or ', $pages);
+$shints = implode(', or ', $pages);
 $hints = implode(',', $pages);
 
 $response = new VoiceResponse();
