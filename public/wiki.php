@@ -10,9 +10,10 @@ $c = curl_init($url);
 curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 $json = curl_exec($c);
 $results = json_decode($json, true);
+$say = 'Hi.';
 
 foreach($results['query']['pages'] as $res){
-  $say = $res['extract'];
+  $say .= $res['extract'];
   
 }
 $response = new VoiceResponse();
