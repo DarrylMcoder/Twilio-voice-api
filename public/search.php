@@ -14,7 +14,7 @@ curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 $json = curl_exec($c);
 $results = json_decode($json, true);
 foreach($results['query']['pages'] as $page){
-  $pages[] = $page;
+  $pages[] = $page['title'];
 }
 $shints = implode(' or ', $pages);
 $hints = implode(',', $pages);
