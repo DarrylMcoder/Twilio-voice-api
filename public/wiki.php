@@ -16,7 +16,7 @@ foreach($results['query']['pages'] as $res){
   
 }
 $response = new VoiceResponse();
-$response->say($say);
+$response->say($say,['voice' => 'Polly.Matthew']);
 $response->pause(['length' => 3]);
 $response->redirect('main.php');
 echo $response;

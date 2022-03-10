@@ -16,3 +16,5 @@ switch($_POST['digits']){
   case 8:
     $response->redirect('about.php');
 }
+
+echo $response;

@@ -28,9 +28,9 @@ $gather = $response->gather([
   'finishOnKey' => '#'
 ]);
 
-$gather->say('I found several similar pages in the encyclopedia. Which of the following were you looking for: '. $shints.'?');
+$gather->say('I found several similar pages in the encyclopedia. Which of the following were you looking for: '. $shints.'?',['voice' => 'Polly.Matthew']);
 
-$response->say('I\'m sorry. I didn\'t hear that. Please try again.');
+$response->say('I\'m sorry. I didn\'t hear that. Please try again.',['voice' => 'Polly.Matthew']);
 
 $response->redirect('wikipediaMain.php');
 

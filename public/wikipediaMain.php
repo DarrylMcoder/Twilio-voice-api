@@ -10,9 +10,9 @@ $gather = $response->gather([
   'input'  => 'speech'
 ]);
 
-$gather->say('Please tell me the word or phrase you want to find.');
+$gather->say('Please tell me the word or phrase you want to find.', ['voice' => 'Polly.Matthew']);
 
-$response->say('I\'m sorry. I didn\'t hear anything. Please try again.');
+$response->say('I\'m sorry. I didn\'t hear anything. Please try again.',['voice' => 'Polly.Matthew']);
 
 $response->redirect('wikipediaMain.php');
 
