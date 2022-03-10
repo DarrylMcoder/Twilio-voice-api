@@ -6,7 +6,8 @@ ini_set('display_errors', 1); //*/
 require('../vendor/autoload.php');
 use \Twilio\TwiML\VoiceResponse;
 
-$speechResult = $_POST['SpeechResult'];
+$speechResult = trim($_POST['SpeechResult'],'. ');
+$speechResult = urlencode($speechResult);
 $searchUrl = 'https://en.wikipedia.org/w/api.php?action=query&origin=%2A&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=%27'.$speechResult.'%27&format=json';
 
 $c = curl_init($searchUrl);
