@@ -4,6 +4,7 @@ require('../vendor/autoload.php');
 use \Twilio\TwiML\VoiceResponse;
 
 $speechResult = trim($_POST['SpeechResult'],'. ');
+$speechResult = urlencode($speechResult);
 $url = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles='.$speechResult.'&exintro=1&explaintext=1&exsectionformat=plain&format=json';
 
 $c = curl_init($url);
