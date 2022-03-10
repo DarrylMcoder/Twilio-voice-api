@@ -1,7 +1,7 @@
 <?PHP
-
+/*
 ini_set('error_reporting', E_ALL ^ E_NOTICE); 
-ini_set('display_errors', 1); 
+ini_set('display_errors', 1); //*/
     
 require('../vendor/autoload.php');
 use \Twilio\TwiML\VoiceResponse;
@@ -17,7 +17,7 @@ $shints = implode(' or ', $results['query']['pages']);
 $hints = implode(',', $results['query']['pages']);
 
 $response = new VoiceResponse();
-$response->gather([
+$gather = $response->gather([
   'action' => 'wiki.php',
   'method' => 'post',
   'input' => 'speech',
