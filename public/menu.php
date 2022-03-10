@@ -4,7 +4,7 @@ require('../vendor/autoload.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 
-switch($_POST['digits']){
+switch($_POST['Digits']){
   case 1:
     $response->redirect('wikipediaMain.php');
     break;
@@ -15,6 +15,11 @@ switch($_POST['digits']){
   
   case 8:
     $response->redirect('about.php');
+    break;
+    
+  default:
+    $response->say('You entered: '.$_POST['Digits'].'. Please enter valid input.',['voice' => 'Polly.Matthew']);
+    $response->redirect('main.php');
 }
 
 echo $response;
