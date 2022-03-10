@@ -2,18 +2,19 @@
     
 require('../vendor/autoload.php');
 use \Twilio\TwiML\VoiceResponse;
-
 $response = new VoiceResponse();
+
 $gather = $response->gather([
-  'action' => 'search.php',
-  'method' => 'post',
-  'input'  => 'speech'
+  'action' => 'menu.php',
+  'method' => 'post'
 ]);
 
-$gather->say('What subject do you want information on today? Please pronounce your search words clearly, but normally, so that I can understand.');
+$gather->say('Thank you for calling The Encyclopedia. To use the encyclopedia, press one, for your account, press two, and for more information on the encyclopedia service, press eight.', [
+'voice' => 'Polly.Matthew'
+]);
 
-$response->say('You don\'t seem to have said anything. Please try again.');
+$gather->pause(['length' => 10]);
 
-$response->redirect('main.php');
+$response->redirect('wikipediaMain.php');
 
 echo $response;

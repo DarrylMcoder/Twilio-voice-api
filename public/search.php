@@ -24,14 +24,15 @@ $gather = $response->gather([
   'action' => 'wiki.php',
   'method' => 'post',
   'input' => 'speech',
-  'hints' => $hints
+  'hints' => $hints,
+  'finishOnKey' => '#'
 ]);
 
-$gather->say('Did you mean '. $shints.'?');
+$gather->say('I found several similar pages in the encyclopedia. Which of the following were you looking for: '. $shints.'?');
 
-$response->say('I did not receive a response. Please try again.');
+$response->say('I\'m sorry. I didn\'t hear that. Please try again.');
 
-$response->redirect('main.php');
+$response->redirect('wikipediaMain.php');
 
 
 echo $response;
