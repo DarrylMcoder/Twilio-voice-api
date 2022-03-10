@@ -29,5 +29,11 @@ $gather = $response->gather([
 
 $gather->say('Did you mean '. $shints.'?');
 
+$gather->pause(['length' => 10]);
+
+$response->say('I did not receive a response. Please try again.');
+
+$response->redirect('main.php');
+
 
 echo $response;
