@@ -10,7 +10,7 @@ $c = curl_init($url);
 curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 $json = curl_exec($c);
 $results = json_decode($json, true);
-$say = 'Hi.';
+$say = 'Hi. '. $speechResult.'. ';
 
 foreach($results['query']['pages'] as $res){
   $say .= $res['extract'];

@@ -24,7 +24,7 @@ $gather = $response->gather([
   'action' => 'wiki.php',
   'method' => 'post',
   'input' => 'speech',
-  //'hints' => $hints,
+  'hints' => $hints,
   'finishOnKey' => '#'
 ]);
 
