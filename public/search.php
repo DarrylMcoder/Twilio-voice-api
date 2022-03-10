@@ -13,8 +13,11 @@ $c = curl_init($searchUrl);
 curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 $json = curl_exec($c);
 $results = json_decode($json, true);
-$shints = implode(' or ', $results['query']['pages']);
-$hints = implode(',', $results['query']['pages']);
+foreach($results['query']['pages'] as $page){
+  $pages[] = $page;
+}
+$shints = implode(' or ', $pages);
+$hints = implode(',', $pages);
 
 $response = new VoiceResponse();
 $gather = $response->gather([
