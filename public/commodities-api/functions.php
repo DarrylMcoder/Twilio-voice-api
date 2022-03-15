@@ -15,10 +15,11 @@ function getNotice($user){
 function createUser($from,$mysqli){
   $sql = 'INSERT INTO users(phone, created_at, voice, balance, plan, currency) VALUES(?, ?, ?, ?, ?, ?)';
   $voice = 'Polly.Matthew';
+  $balance = 0;
   $plan = 'free';
   $currency = 'CAD';
   $stmt = $mysqli->prepare($sql);
-  $stmt->bind_param('iisiss',$from, time(), $voice, 0, $plan, $currency);
+  $stmt->bind_param('iisiss',$from, time(), $voice, $balance, $plan, $currency);
   $stmt->execute();
 }
 
