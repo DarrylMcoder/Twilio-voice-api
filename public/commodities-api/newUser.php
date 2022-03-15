@@ -16,3 +16,4 @@ $response->say('An account has been created for you with 24 hours free trial per
 $response->redirect('index.php');
 
 echo $response;
+echo 'WTF';
