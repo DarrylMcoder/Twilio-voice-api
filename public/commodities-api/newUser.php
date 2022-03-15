@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 require('../../vendor/autoload.php');
 include('functions.php');
 include('config.php');
+echo 'WTTF';
 use \Twilio\TwiML\VoiceResponse;
 $from = $_POST['From'];
 createUser($from,$mysqli);
