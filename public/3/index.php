@@ -1,5 +1,0 @@
-<?PHP
-    
-// insert code here...
-    
-?>
