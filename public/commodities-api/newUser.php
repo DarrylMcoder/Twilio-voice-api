@@ -5,10 +5,9 @@ ini_set('display_errors', 1);
 require('../../vendor/autoload.php');
 include('functions.php');
 include('config.php');
-echo 'WTTF';
 use \Twilio\TwiML\VoiceResponse;
 $from = $_POST['From'];
-createUser($from,$mysqli);
+//createUser($from,$mysqli);
 echo $mysqli->error;
 $response = new VoiceResponse();
 
@@ -17,4 +16,3 @@ $response->say('An account has been created for you with 24 hours free trial per
 $response->redirect('index.php');
 
 echo $response;
-echo 'WTF';

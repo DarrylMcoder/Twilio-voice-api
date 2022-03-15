@@ -5,7 +5,6 @@ include('functions.php');
 include('config.php');
 use \Twilio\TwiML\VoiceResponse;
 $from = $_POST['From'];
-$notice = getNotice($from,$mysqli);
 $user = getUser($from,$mysqli);
 
 $response = new VoiceResponse();

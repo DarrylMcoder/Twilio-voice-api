@@ -9,19 +9,21 @@ require('../../vendor/autoload.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 $from = $_POST['From'];
-$user = getUser($from,$mysqli);
-if(isNewUser($from,$mysqli)){
-  $response->redirect('newUser.php');
-}
-
-$notice = getNotice($user);
 
 $gather = $response->gather([
   'action' => 'main_menu.php',
   'method' => 'post'
 ]);
 
-$gather->say('Thank you for calling your prices assistant. '.$notice,['voice' => 'Polly.Matthew']);
+$gather->say('Thank you for calling your prices assistant. ',['voice' => 'Polly.Matthew']);
+
+if(isNewUser($from,$mysqli)){
+  $response->redirect('newUser.php');
+  echo $response;
+  exit;
+}
+
+$user = getUser($from,$mysqli);
 
 if(trialEnded($user) && !paidUp($user)){
   $gather->say('Your free trial has ended. You can choose to upgrade to a plan of 5 dollars per month, or continue using the free plan with access to only basic features.',['voice' => $user['voice']]);
