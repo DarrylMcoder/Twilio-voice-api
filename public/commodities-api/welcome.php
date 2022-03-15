@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 include('config.php');
 include('functions.php');
-require('../vendor/autoload.php');
+require('../../vendor/autoload.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 $from = $_POST['From'];

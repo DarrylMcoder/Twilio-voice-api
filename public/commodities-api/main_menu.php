@@ -1,6 +1,5 @@
 <?PHP
     
-$response = new VoiceResponse();
 $from = $_POST['From'];
 $digits = $_POST['Digits'];
 

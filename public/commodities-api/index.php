@@ -1,6 +1,6 @@
 <?PHP
     
-require('../vendor/autoload.php');
+require('../../vendor/autoload.php');
 include('functions.php');
 include('config.php');
 use \Twilio\TwiML\VoiceResponse;
