@@ -6,6 +6,10 @@ class User{
   function __construct($phone){
     
   }
+  
+  function isNew(){
+    return false;
+  }
 
   function hasAccess(){
     return true;
