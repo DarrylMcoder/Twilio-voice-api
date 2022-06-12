@@ -1,8 +1,9 @@
 <?PHP
     
 class User{
-  $voice = 'Polly.Matthew';
-  $language = 'en-US';
+  
+  public $voice = 'Polly.Matthew';
+  public $language = 'en-US';
   function __construct($phone){
     
   }
