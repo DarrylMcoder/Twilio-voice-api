@@ -26,8 +26,8 @@ switch($_POST['Digits']){
     
   case 8:
     $response->say('The Email Machine is a telephone service for providing basic access to email over the landline.', [
-      'voice' => $user->voice;
-      'language' => $user->language;
+      'voice' => $user->voice,
+      'language' => $user->language
     ]);
     break;
     
@@ -41,8 +41,8 @@ switch($_POST['Digits']){
     
   default:
     $response->say('The number you entered was not valid.', [
-      'voice' => $user->voice;
-      'language' => $user->language;
+      'voice' => $user->voice,
+      'language' => $user->language
     ]);
 }
 echo $response;
