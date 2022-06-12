@@ -26,8 +26,8 @@ switch($_POST['Digits']){
     
   default:
     $response->say('The number you entered was not valid.', [
-      'voice' => $user->voice;
-      'language' => $user->language;
+      'voice' => $user->voice,
+      'language' => $user->language
     ]);
 }
 echo $response;

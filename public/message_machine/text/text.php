@@ -20,7 +20,7 @@ if(!$user->hasAccess()){
   $response->redirect('../welcome.php');
 }else{
   $gather->say('To send an SMS, press 1. To check your SMS inbox, press 2.', [
-    'voice' => $user->voice;
-    'language' => $user->language;
+    'voice' => $user->voice,
+    'language' => $user->language
   ]);
 }

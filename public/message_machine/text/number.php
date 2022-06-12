@@ -13,7 +13,7 @@ $gather = $response->gather([
 ]);
 
 $gather->say('Please dial the number you wish to text. ', [
-  'voice' => $user->voice;
+  'voice' => $user->voice,
   'language' => $user->language
 ]);
 echo $response;
