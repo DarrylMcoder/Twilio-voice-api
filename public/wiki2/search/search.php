@@ -16,7 +16,7 @@ foreach($json['query']['pages'] as $page){
   $title = $page['title'];
   $pages[] = $title;
   if(strtolower($title) === strtolower($q)){
-    $response->redirect("wiki.php?title={$title}");
+    $response->redirect("wiki.php?title=". urlencode($title));
   }
 }
 
@@ -35,7 +35,7 @@ foreach($pages as $key=>$title){
 }
 
 $gather = $response->gather([
-  'action' => "wiki.php?pages=". json_encode($pages)
+  'action' => "wiki.php?pages=". urlencode(json_encode($pages))
 ]);
 
 $response->say('Sorry, I didn\'t get that.',[
