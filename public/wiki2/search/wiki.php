@@ -16,6 +16,10 @@ if(isset($title)){
     if($_REQUEST['Digits'] === $key);
     $page = get_wiki_page($title);
   }
+  $response->say($page,[
+    'voice' => $user->voice,
+    'language' => $user->language
+  ]);
 }
 
 function get_wiki_page($title){
