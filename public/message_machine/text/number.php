@@ -8,7 +8,7 @@ $response = new VoiceResponse();
 $number = $_POST['Caller'];
 $user = new User($number);
 $gather = $response->gather([
-  'action' => 'message.php'
+  'action' => 'message.php',
   'method' => 'post'
 ]);
 
