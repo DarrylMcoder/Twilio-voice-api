@@ -5,7 +5,7 @@ require('../User.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 
-$number = $_GET['Caller'];
+$number = $_REQUEST['Caller'];
 $user = new User($number);
 
 $response->say("Please record the word or phrase you want to know more about.",[
@@ -22,3 +22,4 @@ $response->say('Sorry, I didn\'t get that.',[
   'voice' => $user->voice,
   'language' => $user->language
 ]);
+echo $response;

@@ -5,10 +5,10 @@ require('../User.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 
-$number = $_GET['Caller'];
+$number = $_REQUEST['Caller'];
 $user = new User($number);
 
-$q = $_GET['SpeechResult'];
+$q = $_REQUEST['SpeechResult'];
 $q = trim($q,'. ');
 $json = get_wiki_json($q);
 
@@ -54,3 +54,4 @@ function get_wiki_json($q){
   $json = json_decode($json, true);
   return $json;
 }
+echo $response;

@@ -5,15 +5,15 @@ require('../User.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 
-$number = $_GET['Caller'];
+$number = $_REQUEST['Caller'];
 $user = new User($number);
-$pages = json_decode($_GET['pages'], true);
-$title = $_GET['title'];
+$pages = json_decode($_REQUEST['pages'], true);
+$title = $_REQUEST['title'];
 if(isset($title)){
   $page = get_wiki_page($title);
 }else{
   foreach($pages as $key=>$title){
-    if($_GET['Digits'] === $key);
+    if($_REQUEST['Digits'] === $key);
     $page = get_wiki_page($title);
   }
 }
@@ -30,3 +30,4 @@ function get_wiki_page($title){
   $page = $results['query']['pages'][0];
   return $page;
 }
+echo $response;
