@@ -4,9 +4,9 @@ require('../../../vendor/autoload.php');
 require('../User.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
-$number = $_POST['Caller'];
+$number = $_REQUEST['Caller'];
 $user = new User($number);
-$number = $_POST['Digits'];
+$number = $_REQUEST['Digits'];
 
 $response->say('Please record your message then press pound to continue.',[
   'voice' => $user->voice,
