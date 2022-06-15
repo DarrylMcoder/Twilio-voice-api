@@ -5,7 +5,7 @@ require('../User.php');
 use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 
-$number = $_POST['Caller'];
+$number = $_REQUEST['Caller'];
 $user = new User($number);
 $gather = $response->gather([
   'action' => 'text_split.php',
