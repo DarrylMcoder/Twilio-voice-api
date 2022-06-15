@@ -34,3 +34,4 @@ switch($_POST['Digits']){
     header('Location: number.php');
     break;
 }
+echo $response;

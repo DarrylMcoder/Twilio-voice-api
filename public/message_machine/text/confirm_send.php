@@ -17,3 +17,4 @@ $gather = $response->gather([
   'action' => "send.php?number=$number&message=$message",
   'method' => 'post'
 ]);
+echo $response;

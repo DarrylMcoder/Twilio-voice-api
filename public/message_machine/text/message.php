@@ -17,3 +17,4 @@ $gather = $response->gather([
   'method' => 'post',
   'input'  => 'speech'
 ]);
+echo $response;

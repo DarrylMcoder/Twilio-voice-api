@@ -24,3 +24,4 @@ if(!$user->hasAccess()){
     'language' => $user->language
   ]);
 }
+echo $response;
