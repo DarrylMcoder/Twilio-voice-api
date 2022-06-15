@@ -7,7 +7,7 @@ $response = new VoiceResponse();
 $number = $_GET['Caller'];
 $user = new User($number);
 
-switch($_GET['Digits']){
+switch($_REQUEST['Digits']){
   case 1:
     header('Location: search/input.php');
     break;
