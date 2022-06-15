@@ -6,7 +6,7 @@ use \Twilio\TwiML\VoiceResponse;
 $response = new VoiceResponse();
 $number = $_REQUEST['Caller'];
 $user = new User($number);
-$number = $_REQUEST['Digits'];
+$number = $_GET['number'];
 $message = $_REQUEST['SpeechResult'];
 
 $response->say("Your message to $number says: $message. Are you ready to send it? To send press 1. To rerecord your message press 2. To change the destination phone number press 3.",[
