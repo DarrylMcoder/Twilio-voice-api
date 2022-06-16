@@ -38,7 +38,7 @@ switch($_REQUEST['Digits']){
 function get_wiki_sections($title){
   $title = trim($title,'. ');
   $title = urlencode($title);
-  $url = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles='.$title.'&exintro=1&explaintext=1&exsectionformat=plain&format=json';
+  $url = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles='.$title.'&explaintext=1&exsectionformat=plain&format=json';
   $c = curl_init($url);
   curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
   $json = curl_exec($c);
