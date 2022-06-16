@@ -13,7 +13,7 @@ $titles = json_decode($titles, true);
 $sections = get_wiki_sections($title);
 
 $gather = $response->gather([
-  'action' => 'sections.php?title='.urlencode($title).'&titles='urlencode(json_encode($titles))
+  'action' => 'sections.php?title='.urlencode($title).'&titles='.urlencode(json_encode($titles))
 ]);
 
 foreach($titles as $number=>$section_title){
