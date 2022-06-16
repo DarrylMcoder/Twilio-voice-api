@@ -33,7 +33,7 @@ function get_wiki_page($title){
   $extract = '';
   error_log($json);
   foreach($results['query']['pages'] as $page){
-    error_log($page);
+    error_log(json_encode($page));
     $extract .= $page['extract'];
   }
   return $extract;
