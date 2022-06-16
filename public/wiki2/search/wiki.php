@@ -39,7 +39,7 @@ $gather->say($sections[0],[
   'language' => $user->language
 ]);
 
-$gather->pause(3);
+$gather->pause(['length' => 3]);
 
 $gather->say("More information on $title. ", [
   'voice' => $user->voice,
