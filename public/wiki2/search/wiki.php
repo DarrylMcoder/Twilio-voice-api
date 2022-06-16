@@ -60,7 +60,6 @@ function get_wiki_sections($title){
   $json = curl_exec($c);
   $results = json_decode($json, true);
   $extract = '';
-  error_log($json);
   foreach($results['query']['pages'] as $page){
     error_log(json_encode($page));
     $extract .= $page['extract'];
@@ -69,6 +68,7 @@ function get_wiki_sections($title){
   $regex = "#={2,}(.*?)={2,}#i";
   $replace = "\",\"$1\":\"";
   $extract = preg_replace($regex,$replace,$extract);
+  error_log($extract);
   $sections = json_decode($extract,true);
   return $sections;
 }
