@@ -26,7 +26,7 @@ foreach($sections as $name=>$section){
     continue;
   }
   $say .= "For $name, dial $i. ";
-  $title[$i] = $name;
+  $titles[$i] = $name;
   $i++;
 }
 
