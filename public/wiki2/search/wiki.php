@@ -1,7 +1,4 @@
 <?PHP
-    
-ini_set('error_reporting', E_ALL ^ E_NOTICE); 
-ini_set('display_errors', 1);
 
 require('../../../vendor/autoload.php');
 require('../User.php');
@@ -11,7 +8,7 @@ $response = new VoiceResponse();
 $number = $_REQUEST['Caller'];
 $user = new User($number);
 $pages = json_decode($_REQUEST['pages'], true);
-$title = $_REQUEST['title'];
+$title = $_GET['title'];
 if(isset($title)){
   $page = get_wiki_page($title);
 }else{
@@ -19,7 +16,7 @@ if(isset($title)){
     if($_REQUEST['Digits'] === $key);
     $page = get_wiki_page($title);
   }
-  $response->say($page,[
+  $response->say("Result: ". $page,[
     'voice' => $user->voice,
     'language' => $user->language
   ]);
