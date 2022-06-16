@@ -9,11 +9,11 @@ $user = new User($number);
 
 switch($_REQUEST['Digits']){
   case 1:
-    header('Location: search/input.php');
+    $response->redirect('search/input.php');
     break;
     
   case 7: 
-    header('Location: account/acount.php');
+    $response->redirect('account/acount.php');
     break;
     
   case 8:
@@ -21,14 +21,15 @@ switch($_REQUEST['Digits']){
       'voice' => $user->voice,
       'language' => $user->language
     ]);
+    $response->redirect('welcome.php');
     break;
     
   case '*':
-    header('Location: welcome.php');
+    $response->redirect('welcome.php');
     break;
         
   case '#':
-    header('Location: welcome.php');
+    $response->redirect('welcome.php');
     break;
     
   default:
@@ -36,5 +37,6 @@ switch($_REQUEST['Digits']){
       'voice' => $user->voice,
       'language' => $user->language
     ]);
+    $response->redirect('welcome.php');
 }
 echo $response;
