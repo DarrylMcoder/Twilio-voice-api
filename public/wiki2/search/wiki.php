@@ -65,20 +65,11 @@ function get_wiki_sections($title){
     error_log(json_encode($page));
     $extract .= $page['extract'];
   }
-  
-  $parts = explode(PHP_EOL.PHP_EOL.PHP_EOL, $extract);
-  $sections = [];
-  $i = 0;
-  foreach($parts as $part){
-    $pair = explode(PHP_EOL,$part, 2);
-    if(count($pair) === 2){
-      list($key, $val) = $pair;
-      $sections[$key] = $val;
-    }else{
-      $sections[$i] = $pair[0];
-      $i++;
-    }
-  }
+  $extract = "{0:\"$extract\"}";
+  $regex = "#={2,}(.*?)={2,}#i";
+  $replace = "\",\"$1\":\"";
+  $extract = preg_replace($regex,$replace,$extract);
+  $sections = json_decode($extract,true);
   return $sections;
 }
 echo $response;
