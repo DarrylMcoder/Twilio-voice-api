@@ -31,6 +31,7 @@ function get_wiki_page($title){
   $json = curl_exec($c);
   $results = json_decode($json, true);
   $extract = '';
+  error_log($json);
   foreach($results['query']['pages'] as $page){
    $extract .= $page['extract'];
   }
