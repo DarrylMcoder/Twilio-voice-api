@@ -68,7 +68,7 @@ function get_wiki_sections($title){
   $regex = "#={2,}(.*?)={2,}#i";
   $replace = "\",\"$1\":\"";
   $extract = preg_replace($regex,$replace,$extract);
-  error_log($extract);
+  echo $extract;
   $sections = json_decode($extract,true);
   return $sections;
 }
