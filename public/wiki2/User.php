@@ -2,7 +2,7 @@
     
 class User{
   
-  public $voice = 'Polly.Matthew';
+  public $voice = 'man';
   public $language = 'en-US';
   function __construct($phone){
     
