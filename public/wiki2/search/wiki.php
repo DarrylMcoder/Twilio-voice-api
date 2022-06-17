@@ -7,7 +7,6 @@ $response = new VoiceResponse();
 
 $number = $_REQUEST['Caller'];
 $user = new User($number);
-$pages = json_decode($_REQUEST['pages'], true);
 $title = $_GET['title'];
 
 $digit = $_REQUEST['Digits'];
@@ -44,8 +43,8 @@ function get_wiki_sections($title){
   $extract = str_replace(".",". ",$extract);
   $sections = split_at("== ",$extract);
   foreach($sections as $key=>$val){
-    if(strpos($val,'=== ') != false){
-      $sections[$key] = split_at("=== ",$val);
+    if(strpos($val['content'],'=== ') != false){
+      $sections[$key]['content'] = split_at("=== ",$val['content']);
     }
   }
   return $sections;
