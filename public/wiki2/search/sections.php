@@ -17,11 +17,7 @@ $gather = $response->gather([
 ]);
 
 foreach($titles as $number=>$section_title){
-  $gather->say($number,[
-    'voice' => $user->voice,
-    'language' => $user->language
-  ]);
-  if($number === $_REQUEST['Digits']){
+  if($number == $_REQUEST['Digits']){
     $gather->say($sections[$section_title],[
       'voice' => $user->voice,
       'language' => $user->language
