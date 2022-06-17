@@ -37,11 +37,11 @@ function get_wiki_sections($title){
   $results = json_decode($json, true);
   $extract = '';
   foreach($results['query']['pages'] as $page){
-    error_log(json_encode($page));
     $extract .= $page['extract'];
   }
   $extract = str_replace(".",". ",$extract);
   $sections = split_at("== ",$extract);
+  var_dump($sections);
   foreach($sections as $key=>$val){
     if(strpos($val['content'],'=== ') != false){
       $sections[$key]['content'] = split_at("=== ",$val['content']);
