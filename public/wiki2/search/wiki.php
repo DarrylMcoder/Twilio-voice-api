@@ -64,41 +64,14 @@ function get_wiki_sections($title){
     error_log(json_encode($page));
     $extract .= $page['extract'];
   }
-  $extract = str_replace("\"","\\\"",$extract);
-  $extract = str_replace("'","\\'",$extract);
-  $extract = preg_replace("#\s+#"," ",$extract);
-  $extract = "{".PHP_EOL."0:\"$extract\"".PHP_EOL."}";
-  $regex = "#={2,}(.*?)={2,}#i";
-  $replace = "\",".PHP_EOL."\"$1\": \"";
-  $extract = preg_replace($regex,$replace,$extract);
-  echo $extract;
-  var_dump($sections);
-  $sections = json_decode($extract,true);
-  json_decode($string);
-
-switch (json_last_error()) {
-    case JSON_ERROR_NONE:
-        echo ' - No errors';
-    break;
-    case JSON_ERROR_DEPTH:
-        echo ' - Maximum stack depth exceeded';
-    break;
-    case JSON_ERROR_STATE_MISMATCH:
-        echo ' - Underflow or the modes mismatch';
-    break;
-    case JSON_ERROR_CTRL_CHAR:
-        echo ' - Unexpected control character found';
-    break;
-    case JSON_ERROR_SYNTAX:
-        echo ' - Syntax error, malformed JSON';
-    break;
-    case JSON_ERROR_UTF8:
-        echo ' - Malformed UTF-8 characters, possibly incorrectly encoded';
-    break;
-    default:
-        echo ' - Unknown error';
-    break;
-}
+  $extract = str_replace(".",". ",$extract);
+  $sections = [];
+  $parts = explode("==",$extract);
+  $sections[0] = array_shift($parts);
+  $size = count($parts);
+  for($i = 0; $i < $size; $i += 2){
+    $sections[$parts[$i]] = $parts[$i + 1];
+  }
   return $sections;
 }
 echo $response;
