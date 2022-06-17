@@ -40,18 +40,21 @@ function get_wiki_sections($title){
     $extract .= $page['extract'];
   }
   $extract = str_replace(".",". ",$extract);
-  $sections = split_at("== ",$extract);
+  $sections = split_at("#\s==\s#i",$extract);
   var_dump($sections);
   foreach($sections as $key=>$val){
+    if($key == 'intro'){
+      continue;
+    }
     if(strpos($val['content'],'=== ') != false){
-      $sections[$key]['content'] = split_at("=== ",$val['content']);
+      $sections[$key]['content'] = split_at("#\s===\s#i",$val['content']);
     }
   }
   return $sections;
 }
 function split_at($split,$extract){
   $sections = [];
-  $parts = explode($split,$extract);
+  $parts = preg_split($split,$extract);
   $sections['intro'] = array_shift($parts);
   $size = count($parts);
   $j =0;
