@@ -67,13 +67,38 @@ function get_wiki_sections($title){
   $extract = str_replace("\"","\\\"",$extract);
   $extract = str_replace("'","\\'",$extract);
   $extract = preg_replace("#\s+#"," ",$extract);
-  $extract = "{\n0:\"$extract\"\n}";
+  $extract = "{".PHP_EOL."0:\"$extract\"".PHP_EOL."}";
   $regex = "#={2,}(.*?)={2,}#i";
-  $replace = "\",\n\"$1\": \"";
+  $replace = "\",".PHP_EOL."\"$1\": \"";
   $extract = preg_replace($regex,$replace,$extract);
   echo $extract;
   var_dump($sections);
   $sections = json_decode($extract,true);
+  json_decode($string);
+
+switch (json_last_error()) {
+    case JSON_ERROR_NONE:
+        echo ' - No errors';
+    break;
+    case JSON_ERROR_DEPTH:
+        echo ' - Maximum stack depth exceeded';
+    break;
+    case JSON_ERROR_STATE_MISMATCH:
+        echo ' - Underflow or the modes mismatch';
+    break;
+    case JSON_ERROR_CTRL_CHAR:
+        echo ' - Unexpected control character found';
+    break;
+    case JSON_ERROR_SYNTAX:
+        echo ' - Syntax error, malformed JSON';
+    break;
+    case JSON_ERROR_UTF8:
+        echo ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+    break;
+    default:
+        echo ' - Unknown error';
+    break;
+}
   return $sections;
 }
 echo $response;
