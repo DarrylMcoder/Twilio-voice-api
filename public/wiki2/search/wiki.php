@@ -64,11 +64,13 @@ function get_wiki_sections($title){
     error_log(json_encode($page));
     $extract .= $page['extract'];
   }
+  $extract = str_replace("\"","\\\"",$extract);
+  $extract = str_replace("'","\\'",$extract);
+  $extract = str_replace("\\n","",$extract);
   $extract = "{0:\"$extract\"}";
   $regex = "#={2,}(.*?)={2,}#i";
   $replace = "\",\"$1\":\"";
   $extract = preg_replace($regex,$replace,$extract);
-  echo $extract;
   $sections = json_decode($extract,true);
   return $sections;
 }
