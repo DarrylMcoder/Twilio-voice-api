@@ -65,6 +65,7 @@ function get_wiki_sections($title){
     $extract .= $page['extract'];
   }
   $extract = str_replace(".",". ",$extract);
+  $extract = str_replace("===","==",$extract);
   $sections = [];
   $parts = explode("==",$extract);
   $sections[0] = array_shift($parts);

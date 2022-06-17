@@ -38,30 +38,24 @@ switch($_REQUEST['Digits']){
 function get_wiki_sections($title){
   $title = trim($title,'. ');
   $title = urlencode($title);
-  $url = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles='.$title.'&explaintext=1&exsectionformat=plain&format=json';
+  $url = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles='.$title.'&explaintext=1&format=json';
   $c = curl_init($url);
   curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
   $json = curl_exec($c);
   $results = json_decode($json, true);
   $extract = '';
-  error_log($json);
   foreach($results['query']['pages'] as $page){
     error_log(json_encode($page));
     $extract .= $page['extract'];
   }
-  
-  $parts = explode(PHP_EOL.PHP_EOL.PHP_EOL, $extract);
+  $extract = str_replace(".",". ",$extract);
+  $extract = str_replace("===","==",$extract);
   $sections = [];
-  $i = 0;
-  foreach($parts as $part){
-    $pair = explode(PHP_EOL,$part, 2);
-    if(count($pair) === 2){
-      list($key, $val) = $pair;
-      $sections[$key] = $val;
-    }else{
-      $sections[$i] = $pair[0];
-      $i++;
-    }
+  $parts = explode("==",$extract);
+  $sections[0] = array_shift($parts);
+  $size = count($parts);
+  for($i = 0; $i < $size; $i += 2){
+    $sections[$parts[$i]] = $parts[$i + 1];
   }
   return $sections;
 }
