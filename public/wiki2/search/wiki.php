@@ -9,42 +9,19 @@ $number = $_REQUEST['Caller'];
 $user = new User($number);
 $pages = json_decode($_REQUEST['pages'], true);
 $title = $_GET['title'];
-if(isset($title)){
-  $sections = get_wiki_sections($title);
-}else{
-  foreach($pages as $key=>$title){
-    if($_REQUEST['Digits'] === $key);
-    $sections = get_wiki_sections($title);
-  }
-}
 
-$say = '';
-$i = 0;
-$titles = [];
-foreach($sections as $name=>$section){
-  if(is_numeric($name)){
-    continue;
-  }
-  $say .= "For $name, dial $i. ";
-  $titles[$i] = $name;
-  $i++;
-}
-
+$digit = $_REQUEST['Digits'];
+$preindex = isset($_GET['preindex']) ? $_GET['preindex'] : null;
 $gather = $response->gather([
-  'action' => 'sections.php?title='.urlencode($title).'&titles='.urlencode(json_encode($titles))
+  'action' => 'wiki.php?title='.urlencode($title).'&preindex='.urlencode($digit)
 ]);
 
-$gather->say($sections[0],[
-  'voice' => $user->voice,
-  'language' => $user->language
-]);
-
-$gather->pause(['length' => 3]);
-
-$gather->say("More information on $title. ", [
-  'voice' => $user->voice,
-  'language' => $user->language
-]);
+$sections = get_wiki_sections($title);
+if(isset($preindex)){
+  $say = get_layer_text($sections[$preindex]['content'],$digit);
+}else{
+  $say = get_layer_text($sections,$digit);
+}
 
 $gather->say($say,[
   'voice' => $user->voice,
@@ -65,14 +42,42 @@ function get_wiki_sections($title){
     $extract .= $page['extract'];
   }
   $extract = str_replace(".",". ",$extract);
-  $extract = str_replace("===","==",$extract);
-  $sections = [];
-  $parts = explode("==",$extract);
-  $sections[0] = array_shift($parts);
-  $size = count($parts);
-  for($i = 0; $i < $size; $i += 2){
-    $sections[$parts[$i]] = $parts[$i + 1];
+  $sections = split_at("== ",$extract);
+  foreach($sections as $key=>$val){
+    if(strpos($val,'=== ') != false){
+      $sections[$key] = split_at("=== ",$val);
+    }
   }
   return $sections;
+}
+function split_at($split,$extract){
+  $sections = [];
+  $parts = explode($split,$extract);
+  $sections['intro'] = array_shift($parts);
+  $size = count($parts);
+  $j =0;
+  for($i = 0; $i < $size; $i += 2){
+    $sections[$j] = [
+      'name'    => $parts[$i],
+      'content' => $parts[$i + 1]
+    ];
+    $j++;
+  }
+  return $sections;
+}
+function get_layer_text($sections,$digit){
+  $say = '';
+  foreach($sections as $index=>$section){
+    if($index == $digit){
+      $say .= $section['intro'];
+      $say .= " More about {$section['name']}. ";
+      if(is_array($section['content'])){
+        foreach($section['content'] as $key=>$val){
+          $say .= " For {$val['name']}, dial {$key}. ";
+        }
+      }
+    }
+  }
+  return $say;
 }
 echo $response;
