@@ -67,9 +67,9 @@ function get_wiki_sections($title){
   $extract = str_replace("\"","\\\"",$extract);
   $extract = str_replace("'","\\'",$extract);
   $extract = preg_replace("#\s+#"," ",$extract);
-  $extract = "{0:\"$extract\"}";
+  $extract = "{\n0:\"$extract\"\n}";
   $regex = "#={2,}(.*?)={2,}#i";
-  $replace = "\",\"$1\":\"";
+  $replace = "\",\n\"$1\": \"";
   $extract = preg_replace($regex,$replace,$extract);
   echo $extract;
   var_dump($sections);
