@@ -13,7 +13,7 @@ $digit = isset($_REQUEST['Digits']) ? $_REQUEST['Digits'] : null;
 $pages = json_decode($_REQUEST['pages'], true);
 $preindex = isset($_GET['preindex']) ? $_GET['preindex'] : null;
 $gather = $response->gather([
-  'action' => 'wiki.php?title='.urlencode($title). (isset($digit) ? '&preindex='.urlencode($digit) : '');
+  'action' => 'wiki.php?title='.urlencode($title). (isset($digit) ? '&preindex='.urlencode($digit) : '')
 ]);
 
 if(isset($title)){
