@@ -9,11 +9,11 @@ $number = $_REQUEST['Caller'];
 $user = new User($number);
 $title = $_GET['title'];
 
-$digit = $_REQUEST['Digits'];
+$digit = isset($_REQUEST['Digits']) ? $_REQUEST['Digits'] : null;
 $pages = json_decode($_REQUEST['pages'], true);
 $preindex = isset($_GET['preindex']) ? $_GET['preindex'] : null;
 $gather = $response->gather([
-  'action' => 'wiki.php?title='.urlencode($title).'&preindex='.urlencode($digit)
+  'action' => 'wiki.php?title='.urlencode($title). (isset($digit) ? '&preindex='.urlencode($digit) : '');
 ]);
 
 if(isset($title)){
