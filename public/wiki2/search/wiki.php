@@ -22,15 +22,10 @@ if(isset($title)){
   $sections = get_wiki_sections($pages[$digit]);
 }
               
-if(isset($digit)){
+if(isset($digit) && !isset($preindex)){
   $say = get_layer_text($sections[$digit]['content']);
 }elseif(isset($preindex,$digit)){
   $say = get_layer_text($sections[$preindex]['content'][$digit]['content']);
-}else{
-  $say = get_layer_text($sections);
-}
-if(isset($preindex)){
-  $say = get_layer_text($sections[$preindex]['content']);
 }else{
   $say = get_layer_text($sections);
 }
