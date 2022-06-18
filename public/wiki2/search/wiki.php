@@ -49,42 +49,28 @@ function get_wiki_sections($title){
   }
   $extract = str_replace(".",". ",$extract);
   $sections = split_at("#\s==\s#i",$extract);
-  foreach($sections as $key=>$val){
-    if($key == 'intro'){
-      continue;
-    }
-    if(strpos($val['content'],'=== ') != false){
-      $sections[$key]['content'] = split_at("#\s===\s#i",$val['content']);
-      foreach($sections[$key]['content'] as $subkey=>$subval){
-        if($key == 'intro'){
-          continue;
-        }
-        $sections[$key]['content'][$subkey]['content'] = [
-          'intro' => $subval['content']
-        ];
-      }
-    }else{
-      $sections[$key]['content'] = [
-        'intro' => $val['content']
-      ];
-    }
-  }
+  $sections = format_sections($sections,3);
   var_dump($sections);
   return $sections;
 }
 function split_at($split,$extract){
   $sections = [];
-  $parts = preg_split($split,$extract);
-  $sections['intro'] = array_shift($parts);
-  $size = count($parts);
-  $j =0;
-  for($i = 0; $i < $size; $i += 2){
-    $sections[$j] = [
-      'name'    => $parts[$i],
-      'content' => $parts[$i + 1]
-    ];
-    $j++;
+  if(preg_match($split,$extract,$m) === 1){
+    $parts = preg_split($split,$extract);
+    $sections['intro'] = array_shift($parts);
+    $size = count($parts);
+    $j =0;
+    for($i = 0; $i < $size; $i += 2){
+      $sections[$j] = [
+        'name'    => $parts[$i],
+        'content' => $parts[$i + 1]
+      ];
+      $j++;
+    }
+  }else{
+    $sections['intro'] = $extract;
   }
+  
   return $sections;
 }
 function get_layer_text($sections){
@@ -97,5 +83,16 @@ function get_layer_text($sections){
     $say .= " For {$val['name']}, dial {$key}. ";
   }
   return $say;
+}
+
+function format_sections($sections,$r){
+  foreach($sections as $key=>$val){
+    if($key == 'intro'){
+      continue;
+    }
+    $sections[$key]['content'] = split_at("#\s". str_repeat('=',$r) ."\s#i",$val['content']);
+    $sections[$key]['content'] = format_sections($sections[$key]['content'], $r + 1);
+  }
+  return $sections;
 }
 echo $response;
