@@ -56,6 +56,9 @@ function get_wiki_sections($title){
     if(strpos($val['content'],'=== ') != false){
       $sections[$key]['content'] = split_at("#\s===\s#i",$val['content']);
       foreach($sections[$key]['content'] as $subkey=>$subval){
+        if($key == 'intro'){
+          continue;
+        }
         $sections[$key]['content'][$subkey]['content'] = [
           'intro' => $subval['content']
         ];
