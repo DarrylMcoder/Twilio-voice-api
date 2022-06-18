@@ -22,10 +22,15 @@ if(isset($title)){
   $sections = get_wiki_sections($pages[$digit]);
 }
               
+if(isset($digit)){
+  $say = get_layer_text($sections[$digit]['content']);
+}elseif(isset($preindex,$digit)){
+  $say = get_layer_text($sections[$preindex]['content'][$digit]['content']);
+}else{
+  $say = get_layer_text($sections);
+}
 if(isset($preindex)){
-  $say = get_layer_text($sections[$preindex]['content'],$digit);
-}elseif(isset($title,$digit)){
-  $say = get_layer_text($sections,$digit);
+  $say = get_layer_text($sections[$preindex]['content']);
 }else{
   $say = get_layer_text($sections);
 }
@@ -55,6 +60,10 @@ function get_wiki_sections($title){
     }
     if(strpos($val['content'],'=== ') != false){
       $sections[$key]['content'] = split_at("#\s===\s#i",$val['content']);
+    }else{
+      $sections[$key]['content'] = [
+        'intro' => $val['content']
+      ];
     }
   }
   var_dump($sections);
@@ -75,36 +84,14 @@ function split_at($split,$extract){
   }
   return $sections;
 }
-function get_layer_text($sections,$digit = null){
+function get_layer_text($sections){
   $say = '';
-  if(isset($digit)){
-    foreach($sections as $index=>$section){
-    if($index == $digit){
-      $say .= $section['intro'];
-      $say .= " More about {$section['name']}. ";
-      if(is_array($section['content'])){
-        foreach($section['content'] as $key=>$val){
-          $say .= " For {$val['name']}, dial {$key}. ";
-        }
-      }
+  $say .= $sections['intro'];
+  foreach($sections as $key=>$val){
+    if($key == 'intro'){
+      continue;
     }
-  }
-  }else{
-    $say .= $sections['intro'];
-    foreach($sections as $key=>$val){
-      $say .= " For {$val['name']}, dial {$key}. ";
-    }
-  }
-  foreach($sections as $index=>$section){
-    if($index == $digit){
-      $say .= $section['intro'];
-      $say .= " More about {$section['name']}. ";
-      if(is_array($section['content'])){
-        foreach($section['content'] as $key=>$val){
-          $say .= " For {$val['name']}, dial {$key}. ";
-        }
-      }
-    }
+    $say .= " For {$val['name']}, dial {$key}. ";
   }
   return $say;
 }
