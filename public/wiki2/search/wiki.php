@@ -10,15 +10,21 @@ $user = new User($number);
 $title = $_GET['title'];
 
 $digit = $_REQUEST['Digits'];
+$pages = json_decode($_REQUEST['pages'], true);
 $preindex = isset($_GET['preindex']) ? $_GET['preindex'] : null;
 $gather = $response->gather([
   'action' => 'wiki.php?title='.urlencode($title).'&preindex='.urlencode($digit)
 ]);
 
-$sections = get_wiki_sections($title);
+if(isset($title)){
+  $sections = get_wiki_sections($title);
+}elseif(isset($pages)){
+  $sections = get_wiki_sections($pages[$digit]);
+}
+              
 if(isset($preindex)){
   $say = get_layer_text($sections[$preindex]['content'],$digit);
-}else{
+}elseif(isset($title,$digit)){
   $say = get_layer_text($sections,$digit);
 }
 
@@ -41,7 +47,6 @@ function get_wiki_sections($title){
   }
   $extract = str_replace(".",". ",$extract);
   $sections = split_at("#\s==\s#i",$extract);
-  var_dump($sections);
   foreach($sections as $key=>$val){
     if($key == 'intro'){
       continue;
@@ -50,6 +55,7 @@ function get_wiki_sections($title){
       $sections[$key]['content'] = split_at("#\s===\s#i",$val['content']);
     }
   }
+  var_dump($sections);
   return $sections;
 }
 function split_at($split,$extract){
@@ -67,8 +73,26 @@ function split_at($split,$extract){
   }
   return $sections;
 }
-function get_layer_text($sections,$digit){
+function get_layer_text($sections,$digit = null){
   $say = '';
+  if(isset($digit)){
+    foreach($sections as $index=>$section){
+    if($index == $digit){
+      $say .= $section['intro'];
+      $say .= " More about {$section['name']}. ";
+      if(is_array($section['content'])){
+        foreach($section['content'] as $key=>$val){
+          $say .= " For {$val['name']}, dial {$key}. ";
+        }
+      }
+    }
+  }
+  }else{
+    $say .= $sections['intro'];
+    foreach($sections as $key=>$val){
+      $say .= " For {$val['name']}, dial {$key}. ";
+    }
+  }
   foreach($sections as $index=>$section){
     if($index == $digit){
       $say .= $section['intro'];
