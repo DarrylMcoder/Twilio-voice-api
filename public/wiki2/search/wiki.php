@@ -26,6 +26,8 @@ if(isset($preindex)){
   $say = get_layer_text($sections[$preindex]['content'],$digit);
 }elseif(isset($title,$digit)){
   $say = get_layer_text($sections,$digit);
+}else{
+  $say = get_layer_text($sections);
 }
 
 $gather->say($say,[
