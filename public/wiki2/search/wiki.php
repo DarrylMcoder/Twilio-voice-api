@@ -50,7 +50,6 @@ function get_wiki_sections($title){
   $extract = str_replace(".",". ",$extract);
   $sections = split_at("#\s==\s#i",$extract);
   $sections = format_sections($sections,3);
-  var_dump($sections);
   return $sections;
 }
 function split_at($split,$extract){
