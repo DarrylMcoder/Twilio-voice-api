@@ -8,18 +8,31 @@ $response = new VoiceResponse();
 $number = $_REQUEST['Caller'];
 $user = new User($number);
 $title = $_GET['title'];
-
 $digit = isset($_REQUEST['Digits']) ? $_REQUEST['Digits'] : null;
 $pages = json_decode($_REQUEST['pages'], true);
 $preindex = isset($_GET['preindex']) ? $_GET['preindex'] : null;
+$previous = isset($_GET['previous']) ? $_GET['previous'] : '';
+$this_page = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+switch($digit){
+  case '*':
+    $response->redirect($previous);
+    break;
+  case '#':
+    $response->redirect('../welcome.php');
+}
+
 $gather = $response->gather([
-  'action' => 'wiki.php?title='.urlencode($title). (isset($digit) ? '&preindex='.urlencode($digit) : '')
+  'action' => 'wiki.php?title='.urlencode($title). (isset($digit) ? '&preindex='.urlencode($digit) : '').'&previous='.urlencode($this_page)
 ]);
 
 if(isset($title)){
   $sections = get_wiki_sections($title);
 }elseif(isset($pages)){
-  $sections = get_wiki_sections($pages[$digit]);
+  foreach($pages as $key=>$val){
+    if($key == $digit){
+      $sections = get_wiki_sections($val);
+    }
+  }
 }
               
 if(isset($digit) && !isset($preindex)){
